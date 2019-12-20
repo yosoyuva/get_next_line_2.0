@@ -6,7 +6,7 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:48:39 by ymehdi            #+#    #+#             */
-/*   Updated: 2019/12/20 21:36:50 by ymehdi           ###   ########.fr       */
+/*   Updated: 2019/12/20 23:42:11 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,6 @@ char	*ft_strcat(char *s1, const char *s2)
 	return (s1);
 }
 
-char	*ft_strdup(const char *s1)
-{
-	char	*dest;
-	int		i;
-
-	i = 0;
-	while (s1[i])
-		i++;
-	if ((dest = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
 	size_t	count;
@@ -88,7 +68,9 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	if (ft_strlen(s) < start)
-		return (ft_strdup(""));
+	{
+		return (ft_strnew(0));
+	}
 	size = ft_strlen(s + start);
 	if (size < len)
 		len = size;
@@ -101,4 +83,12 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	}
 	tab[count] = '\0';
 	return (tab);
+}
+
+void	ft_strdel(char **as)
+{
+	if (!as || !*as)
+		return ;
+	free(*as);
+	*as = NULL;
 }

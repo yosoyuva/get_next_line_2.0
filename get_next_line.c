@@ -6,12 +6,11 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:46:23 by ymehdi            #+#    #+#             */
-/*   Updated: 2019/12/20 22:03:27 by ymehdi           ###   ########.fr       */
+/*   Updated: 2019/12/20 23:49:36 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -73,54 +72,46 @@ int		ft_aux(char **red, char **line, int fd)
 	if (red[fd][i] == '\n')
 	{
 		if (((*line = ft_strsub(red[fd], 0, i)) == NULL))
-			return -1;
-		if ((tmp = ft_strdup(red[fd] + i + 1)) == NULL)
-			return -1;
+			return (-1);
+		tmp = ft_strsub(red[fd], i + 1, ft_strlen(red[fd]));
 		free(red[fd]);
 		red[fd] = tmp;
 		if (red[fd][0] == '\0')
-		{
-			free(red[fd]);
-			red[fd] = NULL;
-		}
+			ft_strdel(&red[fd]);
 	}
 	else if (red[fd][i] == '\0')
 	{
-		if((*line = ft_strdup(red[fd])) == NULL)
-			return -1;
-		free(red[fd]);
-		red[fd] = NULL;
-		return 0;
+		if ((*line = ft_strsub(red[fd], 0, ft_strlen(red[fd]))) == NULL)
+			return (-1);
+		ft_strdel(&red[fd]);
+		return (0);
 	}
 	return (1);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	static char	*red[1024];
-	char		buf[BUFF_SIZE + 1];
-	char		*tmp;
-	int			ret;
+	static char			*red[1024];
+	struct s_variables	var;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
+	while ((var.ret = read(fd, var.buf, BUFF_SIZE)) > 0)
 	{
-		buf[ret] = '\0';
+		var.buf[var.ret] = '\0';
 		if (red[fd] == NULL)
 			if (!(red[fd] = ft_strnew(1)))
 				return (-1);
-		if (!(tmp = ft_strjoin(red[fd], buf)))
-			return (-1);
+		var.tmp = ft_strjoin(red[fd], var.buf);
 		free(red[fd]);
-		red[fd] = tmp;
-		if (ft_strchr(buf, '\n'))
+		red[fd] = var.tmp;
+		if (ft_strchr(var.buf, '\n'))
 			break ;
 	}
-	if (ret < 0)
+	if (var.ret < 0)
 		return (-1);
-	else if (ret == 0 && (red[fd] == NULL || red[fd][0] == '\0'))
-	{	
+	else if (var.ret == 0 && (red[fd] == NULL || red[fd][0] == '\0'))
+	{
 		*line = ft_strnew(0);
 		return (0);
 	}
