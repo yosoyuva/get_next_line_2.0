@@ -6,6 +6,99 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:48:39 by ymehdi            #+#    #+#             */
-/*   Updated: 2019/11/10 21:48:44 by ymehdi           ###   ########.fr       */
+/*   Updated: 2019/12/20 21:36:50 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	size;
+
+	size = 0;
+	while (s[size] != '\0')
+	{
+		size++;
+	}
+	return (size);
+}
+
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	pos;
+
+	pos = 0;
+	while (src[pos] != '\0')
+	{
+		dst[pos] = src[pos];
+		pos++;
+	}
+	if (src[pos] == '\0')
+		dst[pos] = '\0';
+	return (dst);
+}
+
+char	*ft_strcat(char *s1, const char *s2)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (s1[j] != '\0')
+		j++;
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		s1[j] = s2[i];
+		i++;
+		j++;
+	}
+	s1[j] = '\0';
+	return (s1);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*dest;
+	int		i;
+
+	i = 0;
+	while (s1[i])
+		i++;
+	if ((dest = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	size_t	count;
+	size_t	size;
+	char	*tab;
+
+	count = 0;
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
+	size = ft_strlen(s + start);
+	if (size < len)
+		len = size;
+	if (!(tab = (char *)malloc((len + 1) * sizeof(char))))
+		return (NULL);
+	while (count < len)
+	{
+		tab[count] = s[start + count];
+		count++;
+	}
+	tab[count] = '\0';
+	return (tab);
+}
