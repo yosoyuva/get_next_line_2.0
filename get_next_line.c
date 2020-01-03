@@ -6,7 +6,7 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:46:23 by ymehdi            #+#    #+#             */
-/*   Updated: 2019/12/20 23:49:36 by ymehdi           ###   ########.fr       */
+/*   Updated: 2020/01/03 15:48:01 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int		get_next_line(const int fd, char **line)
 	static char			*red[1024];
 	struct s_variables	var;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || line == NULL || BUFFER_SIZE < 1)
 		return (-1);
-	while ((var.ret = read(fd, var.buf, BUFF_SIZE)) > 0)
+	while ((var.ret = read(fd, var.buf, BUFFER_SIZE)) > 0)
 	{
 		var.buf[var.ret] = '\0';
 		if (red[fd] == NULL)
@@ -108,7 +108,7 @@ int		get_next_line(const int fd, char **line)
 		if (ft_strchr(var.buf, '\n'))
 			break ;
 	}
-	if (var.ret < 0)
+	if (var.ret < 0 || BUFFER_SIZE < 1)
 		return (-1);
 	else if (var.ret == 0 && (red[fd] == NULL || red[fd][0] == '\0'))
 	{

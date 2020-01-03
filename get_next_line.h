@@ -6,13 +6,12 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:48:28 by ymehdi            #+#    #+#             */
-/*   Updated: 2019/12/20 23:48:53 by ymehdi           ###   ########.fr       */
+/*   Updated: 2020/01/03 15:49:01 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 32
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/types.h>
@@ -21,7 +20,7 @@
 
 struct	s_variables
 {
-	char		buf[BUFF_SIZE + 1];
+	char		buf[BUFFER_SIZE + 1];
 	char		*tmp;
 	int			ret;
 }		;
