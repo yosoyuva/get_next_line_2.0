@@ -6,7 +6,7 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:48:39 by ymehdi            #+#    #+#             */
-/*   Updated: 2019/12/20 23:42:11 by ymehdi           ###   ########.fr       */
+/*   Updated: 2020/01/24 15:57:30 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (ft_strlen(s) < start)
 	{
-		return (ft_strnew(0));
+		return (ft_strnew(0, 1));
 	}
 	size = ft_strlen(s + start);
 	if (size < len)

@@ -6,7 +6,7 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:46:23 by ymehdi            #+#    #+#             */
-/*   Updated: 2020/01/03 15:48:01 by ymehdi           ###   ########.fr       */
+/*   Updated: 2020/01/24 16:18:01 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strnew(size_t size)
+char	*ft_strnew(int size, int a)
 {
 	void		*s;
-	size_t		i;
+	int			i;
 
 	i = 0;
+	if (a == 7)
+		if (size < 1)
+			return (NULL);
 	if ((s = malloc(size + 1)) == NULL)
 		return (NULL);
 	while (i < size + 1)
@@ -94,13 +97,13 @@ int		get_next_line(const int fd, char **line)
 	static char			*red[1024];
 	struct s_variables	var;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE < 1)
+	if (fd < 0 || line == NULL || !(var.buf = ft_strnew(BUFFER_SIZE, 7)))
 		return (-1);
 	while ((var.ret = read(fd, var.buf, BUFFER_SIZE)) > 0)
 	{
 		var.buf[var.ret] = '\0';
 		if (red[fd] == NULL)
-			if (!(red[fd] = ft_strnew(1)))
+			if (!(red[fd] = ft_strnew(1, 1)))
 				return (-1);
 		var.tmp = ft_strjoin(red[fd], var.buf);
 		free(red[fd]);
@@ -111,9 +114,8 @@ int		get_next_line(const int fd, char **line)
 	if (var.ret < 0 || BUFFER_SIZE < 1)
 		return (-1);
 	else if (var.ret == 0 && (red[fd] == NULL || red[fd][0] == '\0'))
-	{
-		*line = ft_strnew(0);
-		return (0);
-	}
-	return (ft_aux(red, line, fd));
+		*line = ft_strnew(0, 1);
+	free(var.buf);
+	return (var.ret == 0 && (red[fd] == NULL || red[fd][0] == '\0')) \
+	? (0) : (ft_aux(red, line, fd));
 }

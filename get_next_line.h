@@ -6,7 +6,7 @@
 /*   By: ymehdi <ymehdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:48:28 by ymehdi            #+#    #+#             */
-/*   Updated: 2020/01/03 15:49:01 by ymehdi           ###   ########.fr       */
+/*   Updated: 2020/01/24 16:09:13 by ymehdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 
 struct	s_variables
 {
-	char		buf[BUFFER_SIZE + 1];
+	char		*buf;
 	char		*tmp;
 	int			ret;
 }		;
 int		get_next_line(int fd, char **line);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strnew(size_t size);
+char	*ft_strnew(int size, int a);
 char	*ft_strchr(const char *s, int c);
 int		ft_aux(char **red, char **line, int fd);
 size_t	ft_strlen(const char *s);
